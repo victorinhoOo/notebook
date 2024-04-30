@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/.Notebook.vpp.lck
+/Notebook.vpp
+/Notebook.vpp.bak_000f
+/Notebook.vpp

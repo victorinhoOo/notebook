@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,14 @@ namespace Storage
             connection = new SQLiteConnection(@"DataSource=" + fileName);
             connection.Open();
         }
+        private Course Reader2Course(SQLiteDataReader reader)
+        {
+            Course course = new Course(this, true);
+            course.Code = reader["Code"].ToString();
+            course.Name = reader["Name"].ToString();
+            course.Weight = Convert.ToInt32(reader["Weight"]);
+            return course;
+        }
 
         public void Create(Course course)
         {
@@ -32,7 +41,17 @@ namespace Storage
 
         public Course[] ListAll()
         {
-            throw new NotImplementedException();
+            List<Course> courses = new List<Course>();
+            var command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM Course";
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    courses.Add(Reader2Course(reader));
+                }
+            }
+            return courses.ToArray();
         }
 
         public Course Read(string code)

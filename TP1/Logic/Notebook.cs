@@ -16,5 +16,11 @@ namespace Logic
         {
             this.dao = dao;
         }
+
+        public Course[] GetCourses()
+        {
+            return this.dao.ListAll();
+        }
+
     }
 }

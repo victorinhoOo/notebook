@@ -1,5 +1,4 @@
 ﻿using Logic;
-using Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,27 +11,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HMI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logique d'interaction pour CourseScreen.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CourseScreen : Window
     {
         private Notebook notebook;
-        public MainWindow()
+
+        public CourseScreen(Notebook notebook)
         {
             InitializeComponent();
-            notebook = new Notebook(new CourseDaoSqlite("notebook.db"));
+            this.notebook = notebook;
+            listCourses.ItemsSource = this.notebook.GetCourses();
         }
-        private void OpenCourseScreen_Click(object sender, RoutedEventArgs e)
-        {
-            CourseScreen courseScreen = new CourseScreen(notebook);
-            courseScreen.Show();
-        }
-
     }
 }

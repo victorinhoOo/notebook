@@ -59,7 +59,7 @@ namespace Logic
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new EmptyStringException(nameof(Code));
-                if (exists && code != null)
+                if (exists && code != null && value != code)
                     throw new CodeCannotChangeException();
                 code = value;
             }
@@ -94,6 +94,22 @@ namespace Logic
         public override int GetHashCode()
         {
             return HashCode.Combine(Code);
+        }
+
+        /// <summary>
+        /// Enregistre le cours dans la base de données (soit en le modifiant soit en le créant si celui-ci n'existe pas)
+        /// </summary>
+        public void Save()
+        {
+            if(this.exists)
+            {
+                dao.Update(this);
+            }
+            else
+            {
+                dao.Create(this);
+                exists = true;
+            }
         }
     }
 }

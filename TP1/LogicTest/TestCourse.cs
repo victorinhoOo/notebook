@@ -111,6 +111,19 @@ namespace TestLogicLayer
             test.Weight = weigth;
             Assert.Equal(result, test.ToString());
         }
-        
+
+        [Fact]
+        public void TestSaveUpdate()
+        {
+            FakeCourseDao dao = new FakeCourseDao();
+            Course test = new Course(dao, true);
+            test.Code = "T";
+            test.Name = "Test";
+            test.Weight = 1;
+            test.Save();
+            Assert.Equal("Update", dao.LastAction);
+            Assert.Equal(test, dao.LastCourse);
+        }
+
     }
 }

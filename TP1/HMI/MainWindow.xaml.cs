@@ -30,7 +30,7 @@ namespace HMI
         }
         private void OpenCourseScreen_Click(object sender, RoutedEventArgs e)
         {
-            CourseScreen courseScreen = new CourseScreen(notebook);
+            CoursesScreen courseScreen = new CoursesScreen(notebook);
             courseScreen.Show();
         }
 

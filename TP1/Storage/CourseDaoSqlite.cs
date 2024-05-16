@@ -65,7 +65,9 @@ namespace Storage
 
         public void Update(Course course)
         {
-            throw new NotImplementedException();
+            var command = connection.CreateCommand();
+            command.CommandText = $"UPDATE Course SET Name='{course.Name}',Weight ={ course.Weight} WHERE Code = '{course.Code}'";
+            command.ExecuteNonQuery();
         }
     }
 }

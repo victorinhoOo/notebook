@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,35 +17,38 @@ using System.Windows.Shapes;
 namespace HMI
 {
     /// <summary>
-    /// Logique d'interaction pour CourseScreen.xaml
+    /// Logique d'interaction pour la fenêtre de détail d'un cours
     /// </summary>
     public partial class CourseScreen : Window
     {
-        private Notebook notebook;
-
-        public CourseScreen(Notebook notebook)
+        private Course course;
+        public CourseScreen(Course course)
         {
             InitializeComponent();
-            this.notebook = notebook;
-            listCourses.ItemsSource = this.notebook.GetCourses();
+            this.course = course;
+            this.courseName.Text = course.Name;
+            this.courseCode.Text = course.Code;
+            this.courseWeight.Text = course.Weight.ToString();
         }
 
-        /// <summary>
-        /// Réagit au clic du bouton de suppression 
-        /// </summary>
-        private void RemoveCourse(object sender, RoutedEventArgs e)
+        private void CloseWindow(object sender, RoutedEventArgs e)
         {
-            Course selectedCourse = listCourses.SelectedItem as Course;
-            if (selectedCourse == null)
+            this.Close();
+        }
+
+        private void Ok(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Please select a course to delete.");
-                return;
+                this.course.Name = this.courseName.Text;
+                this.course.Code = this.courseCode.Text;
+                this.course.Weight = Convert.ToInt32(this.courseWeight.Text);
+                this.course.Save();
+                this.Close();
             }
-            // Confirme la suppression
-            if (MessageBox.Show($"Are you sure you want to delete the course : {selectedCourse.Name}?", "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            catch(Exception ex)
             {
-                notebook.RemoveCourse(selectedCourse);
-                listCourses.ItemsSource = this.notebook.GetCourses(); // met à jour la liste des cours après la suppression
+                MessageBox.Show(ex.Message);
             }
 
         }

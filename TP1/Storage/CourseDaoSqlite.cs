@@ -36,7 +36,11 @@ namespace Storage
 
         public void Delete(Course course)
         {
-            throw new NotImplementedException();
+            var command = connection.CreateCommand();
+            command.CommandText = "DELETE FROM Course WHERE Code = @Code";
+            command.Parameters.AddWithValue("@Code", course.Code);
+            command.ExecuteNonQuery();
+
         }
 
         public Course[] ListAll()

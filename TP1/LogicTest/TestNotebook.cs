@@ -15,6 +15,20 @@ namespace TestLogicLayer
             Assert.Equal(list, test);
         }
 
-       
+        [Fact]
+        public void TestRemoveCourse()
+        {
+            var dao = new FakeCourseDao();
+            var notebook = new Notebook(dao);
+            var course = new Course(dao, true);
+            course.Code = "T";
+            course.Name = "Test";
+            course.Weight = 1;
+            notebook.RemoveCourse(course);
+            Assert.Equal("Delete", dao.LastAction);
+            Assert.Equal(course, dao.LastCourse);
+        }
+
+
     }
 }

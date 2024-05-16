@@ -17,9 +17,22 @@ namespace Logic
             this.dao = dao;
         }
 
+        /// <summary>
+        /// Affiche la liste des cours du carnet
+        /// </summary>
+        /// <returns>Liste des cours</returns>
         public Course[] GetCourses()
         {
             return this.dao.ListAll();
+        }
+
+        /// <summary>
+        /// Supprime un cours du carnet
+        /// </summary>
+        /// <param name="course">Cours à supprimer</param>
+        public void RemoveCourse(Course course)
+        {
+            dao.Delete(course);
         }
 
     }

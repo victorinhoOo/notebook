@@ -34,8 +34,8 @@
         <Label Grid.Row="2" Grid.Column="1" Content="Weight:" Margin="281,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Height="34" FontSize="15"/>
         <TextBox Grid.Row="2" Grid.Column="2" Margin="5,0,5,0" VerticalAlignment="Center" Height="18" x:Name="courseWeight"/>
 
-        <Button Grid.Row="3" Grid.Column="0" Content="Ok" Margin="30,39,30,39" Height="30" FontSize="20" Grid.ColumnSpan="2" Click="Ok"/>
-        <Button Grid.Row="3" Grid.Column="2" Content="Cancel" Margin="30,39,30,39" Height="30" FontSize="20" Click="CloseWindow"/>
+        <Button Grid.Row="3" Grid.Column="0" Content="Ok" Margin="30,39,30,39" Height="25" FontSize="15" Grid.ColumnSpan="2" Click="Ok"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="Cancel" Margin="30,39,30,39" Height="25" FontSize="15" Click="CloseWindow"/>
 
     </Grid>
 </Window>

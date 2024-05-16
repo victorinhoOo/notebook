@@ -35,5 +35,14 @@ namespace Logic
             dao.Delete(course);
         }
 
+        /// <summary>
+        /// Créé un cours vide qui n'existe pas encore dans le SGBD
+        /// </summary>
+        /// <returns>cours créé</returns>
+        public Course CreateCourse()
+        {
+            return new Course(dao, false);
+        }
+
     }
 }

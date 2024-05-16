@@ -31,8 +31,14 @@ namespace Storage
 
         public void Create(Course course)
         {
-            throw new NotImplementedException();
+            var command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO Course (Code, Name, Weight) VALUES (@Code, @Name, @Weight);";
+            command.Parameters.AddWithValue("@Code", course.Code); // Utilisation de paramètres de commande
+            command.Parameters.AddWithValue("@Name", course.Name);
+            command.Parameters.AddWithValue("@Weight", course.Weight);
+            command.ExecuteNonQuery();
         }
+
 
         public void Delete(Course course)
         {

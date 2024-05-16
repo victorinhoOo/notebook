@@ -31,11 +31,17 @@ namespace HMI
             this.courseWeight.Text = course.Weight.ToString();
         }
 
+        /// <summary>
+        /// Réagit au clic sur le bouton Close
+        /// </summary>
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Réagit au clic sur le bouton Ok, modifie ou créé le cours saisi dans la fenêtre
+        /// </summary>
         private void Ok(object sender, RoutedEventArgs e)
         {
             try

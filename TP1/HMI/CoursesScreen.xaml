@@ -22,7 +22,7 @@
 
         <ListBox x:Name="listCourses" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Margin="10"/>
 
-        <Button Content="Add new course" FontSize="25" Grid.Column="1" Grid.Row="0" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        <Button Content="Add new course" FontSize="25" Grid.Column="1" Grid.Row="0" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="AddCourse"/>
         <Button Content="Edit course" FontSize="25" Grid.Column="1" Grid.Row="1" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Click="EditCourse"/>
         <Button Content="Remove course" FontSize="25" Grid.Column="1" Grid.Row="2" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="RemoveCourse"/>
     </Grid>

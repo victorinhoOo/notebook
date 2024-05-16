@@ -125,5 +125,18 @@ namespace TestLogicLayer
             Assert.Equal(test, dao.LastCourse);
         }
 
+        [Fact]
+        public void TestSaveCreate()
+        {
+            FakeCourseDao dao = new FakeCourseDao();
+            Course test = new Course(dao, false);
+            test.Code = "T";
+            test.Name = "Test";
+            test.Weight = 1;
+            test.Save();
+            Assert.Equal("Create", dao.LastAction);
+            Assert.Equal(test, dao.LastCourse);
+        }
+
     }
 }

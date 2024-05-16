@@ -29,6 +29,18 @@ namespace TestLogicLayer
             Assert.Equal(course, dao.LastCourse);
         }
 
+        [Fact]
+        public void TestCreateCourse()
+        {
+            var dao = new FakeCourseDao();
+            var notebook = new Notebook(dao);
+            var course = notebook.CreateCourse();
+            Assert.NotNull(course);
+            course.Save();
+            Assert.Equal("Create", dao.LastAction);
+            Assert.Equal(course, dao.LastCourse);
+        }
+
 
     }
 }

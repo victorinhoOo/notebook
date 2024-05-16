@@ -83,7 +83,7 @@ namespace Logic
         }
 
         /// <summary>
-        /// /// Détermine si l'objet spécifié est égal à l'instance du cours, basé sur le code de la matière.
+        /// Détermine si l'objet spécifié est égal à l'instance du cours, basé sur le code de la matière.
         /// </summary>
         public override bool Equals(object? obj)
         {

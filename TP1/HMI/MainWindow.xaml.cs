@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 namespace HMI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for the main window
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -28,6 +28,9 @@ namespace HMI
             InitializeComponent();
             notebook = new Notebook(new CourseDaoSqlite("notebook.db"));
         }
+        /// <summary>
+        /// Réagit au clic sur le bouton "Courses" en ouvrant la fenêtre correspondante
+        /// </summary>
         private void OpenCourseScreen_Click(object sender, RoutedEventArgs e)
         {
             CoursesScreen courseScreen = new CoursesScreen(notebook);

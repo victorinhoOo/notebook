@@ -49,11 +49,27 @@ namespace HMI
 
         }
 
+        /// <summary>
+        /// Réagit au clic du bouton d'édition
+        /// </summary>
         private void EditCourse(object sender, RoutedEventArgs e)
         {
             Course selectedCourse = listCourses.SelectedItem as Course;
             CourseScreen courseScreen = new CourseScreen(selectedCourse);
-            courseScreen.Show();
+            courseScreen.ShowDialog();
+            listCourses.ItemsSource = this.notebook.GetCourses(); // met à jour les cours affichés après la modification
+
+        }
+
+        /// <summary>
+        /// Réagit au clic du bouton de création
+        /// </summary>
+        private void AddCourse(object sender, RoutedEventArgs e)
+        {
+            Course newCourse = notebook.CreateCourse();
+            CourseScreen courseScreen = new CourseScreen(newCourse);
+            courseScreen.ShowDialog();
+            listCourses.ItemsSource = this.notebook.GetCourses(); // met à jour les cours affichés après la création
         }
     }
 }

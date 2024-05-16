@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Logic;
+using Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,17 @@ namespace HMI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Notebook notebook;
         public MainWindow()
         {
             InitializeComponent();
+            notebook = new Notebook(new CourseDaoSqlite("notebook"));
         }
+        private void OpenCourseScreen_Click(object sender, RoutedEventArgs e)
+        {
+            CourseScreen courseScreen = new CourseScreen();
+            courseScreen.Show();
+        }
+
     }
 }

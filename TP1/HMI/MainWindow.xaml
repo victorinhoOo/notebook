@@ -8,5 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Image Source="img/notebookfont.png" Grid.Column="0" Panel.ZIndex="1"/>
+        <Button FontSize="30" Content="Courses" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="2" Margin="187,53,0,0" Click="OpenCourseScreen_Click"/>
     </Grid>
 </Window>

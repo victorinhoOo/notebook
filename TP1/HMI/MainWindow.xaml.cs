@@ -26,7 +26,10 @@ namespace HMI
         public MainWindow()
         {
             InitializeComponent();
-            notebook = new Notebook(new CourseDaoSqlite("notebook.db"));
+            DatabaseSqlite db = new DatabaseSqlite("notebook.db");
+            CourseDaoSqlite cDao = new CourseDaoSqlite(db);
+            ExamDaoSqlite eDao = new ExamDaoSqlite(cDao,db);
+            notebook = new Notebook(cDao, eDao);
         }
         /// <summary>
         /// Réagit au clic sur le bouton "Courses" en ouvrant la fenêtre correspondante

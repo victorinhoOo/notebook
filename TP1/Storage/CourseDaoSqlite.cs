@@ -14,12 +14,13 @@ namespace Storage
     /// </summary>
     public class CourseDaoSqlite: ICourseDao
     {
-        private SQLiteConnection connection;
-        public CourseDaoSqlite(string fileName)
+        private DatabaseSqlite db;
+        public CourseDaoSqlite(DatabaseSqlite db)
         {
-            connection = new SQLiteConnection(@"DataSource=" + fileName);
-            connection.Open();
+            this.db= db;
         }
+
+        /// <inheritdoc/>
         private Course Reader2Course(SQLiteDataReader reader)
         {
             Course course = new Course(this, true);
@@ -29,32 +30,34 @@ namespace Storage
             return course;
         }
 
+        /// <inheritdoc/>
         public void Create(Course course)
         {
-            var command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO Course (Code, Name, Weight) VALUES (@Code, @Name, @Weight);";
-            command.Parameters.AddWithValue("@Code", course.Code); // Utilisation de paramètres de commande
-            command.Parameters.AddWithValue("@Name", course.Name);
-            command.Parameters.AddWithValue("@Weight", course.Weight);
-            command.ExecuteNonQuery();
+            string commandText = "INSERT INTO Course (Code, Name, Weight) VALUES (@Code, @Name, @Weight);";
+            SQLiteParameter[] parameters = {
+                new SQLiteParameter("@Code", course.Code),
+                new SQLiteParameter("@Name", course.Name),
+                new SQLiteParameter("@Weight", course.Weight)
+            };
+            db.ExecuteNonQuery(commandText, parameters);
         }
 
-
+        /// <inheritdoc/>
         public void Delete(Course course)
         {
-            var command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM Course WHERE Code = @Code";
-            command.Parameters.AddWithValue("@Code", course.Code);
-            command.ExecuteNonQuery();
-
+            string commandText = "DELETE FROM Course WHERE Code = @Code;";
+            SQLiteParameter[] parameters = {
+                new SQLiteParameter("@Code", course.Code)
+            };
+            db.ExecuteNonQuery(commandText, parameters);
         }
 
+        /// <inheritdoc/>
         public Course[] ListAll()
         {
             List<Course> courses = new List<Course>();
-            var command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM Course";
-            using (var reader = command.ExecuteReader())
+            string query = "SELECT * FROM Course";
+            using (var reader = db.ExecuteQuery(query))
             {
                 while (reader.Read())
                 {
@@ -64,16 +67,29 @@ namespace Storage
             return courses.ToArray();
         }
 
+        /// <inheritdoc/>
         public Course Read(string code)
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM Course WHERE Code = @Code;";
+            SQLiteParameter[] parameters = {
+                new SQLiteParameter("@Code", code)
+            };
+            using (var reader = db.ExecuteQuery(query, parameters))
+            {
+                return Reader2Course(reader);
+            }
         }
 
+        /// <inheritdoc/>
         public void Update(Course course)
         {
-            var command = connection.CreateCommand();
-            command.CommandText = $"UPDATE Course SET Name='{course.Name}',Weight ={ course.Weight} WHERE Code = '{course.Code}'";
-            command.ExecuteNonQuery();
+            string commandText = "UPDATE Course SET Name = @Name, Weight = @Weight WHERE Code = @Code;";
+            SQLiteParameter[] parameters = {
+                new SQLiteParameter("@Name", course.Name),
+                new SQLiteParameter("@Weight", course.Weight),
+                new SQLiteParameter("@Code", course.Code)
+            };
+            db.ExecuteNonQuery(commandText, parameters);
         }
     }
 }

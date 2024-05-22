@@ -11,10 +11,12 @@ namespace Logic
     /// </summary>
     public class Notebook
     {
-        private ICourseDao dao;
-        public Notebook(ICourseDao dao)
+        private ICourseDao cDao;
+        private IExamDAO eDao;
+        public Notebook(ICourseDao cdao, IExamDAO eDAO)
         {
-            this.dao = dao;
+            this.cDao = cdao;
+            this.eDao = eDAO;
         }
 
         /// <summary>
@@ -23,7 +25,7 @@ namespace Logic
         /// <returns>Liste des cours</returns>
         public Course[] GetCourses()
         {
-            return this.dao.ListAll();
+            return this.cDao.ListAll();
         }
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace Logic
         /// <param name="course">Cours à supprimer</param>
         public void RemoveCourse(Course course)
         {
-            dao.Delete(course);
+            cDao.Delete(course);
         }
 
         /// <summary>
@@ -41,7 +43,25 @@ namespace Logic
         /// <returns>cours créé</returns>
         public Course CreateCourse()
         {
-            return new Course(dao, false);
+            return new Course(cDao, false);
+        }
+
+        /// <summary>
+        /// Créé un examen dans le carnet
+        /// </summary>
+        /// <param name="course">Cours de l'examen à créé</param>
+        public void CreateExamen(Exam exam)
+        {
+            eDao.Create(exam);
+        }
+
+        /// <summary>
+        /// Affiche la liste des examens du carnet
+        /// </summary>
+        /// <returns>Liste des examens</returns>
+        public Exam[] GetExams()
+        {
+            return this.eDao.ListAll();
         }
 
     }

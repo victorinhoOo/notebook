@@ -8,8 +8,9 @@ namespace TestLogicLayer
         public void TestGetAllCourses()
         {
             var dao = new FakeCourseDao();
+            var eDao = new FakeExamDao();
             var list = dao.ListAll();
-            var notebook = new Notebook(dao);
+            var notebook = new Notebook(dao, eDao);
             var test = notebook.GetCourses();
 
             Assert.Equal(list, test);
@@ -19,7 +20,8 @@ namespace TestLogicLayer
         public void TestRemoveCourse()
         {
             var dao = new FakeCourseDao();
-            var notebook = new Notebook(dao);
+            var eDao = new FakeExamDao();
+            var notebook = new Notebook(dao, eDao);
             var course = new Course(dao, true);
             course.Code = "T";
             course.Name = "Test";
@@ -33,7 +35,8 @@ namespace TestLogicLayer
         public void TestCreateCourse()
         {
             var dao = new FakeCourseDao();
-            var notebook = new Notebook(dao);
+            var eDao = new FakeExamDao();
+            var notebook = new Notebook(dao, eDao);
             var course = notebook.CreateCourse();
             Assert.NotNull(course);
             course.Save();

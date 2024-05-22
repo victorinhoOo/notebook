@@ -40,5 +40,16 @@ namespace HMI
             courseScreen.Show();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenExamsScreen_Click(Object sender, RoutedEventArgs e)
+        {
+            ExamScreen examScreen= new ExamScreen(notebook);
+            examScreen.Show();
+        }
+
     }
 }

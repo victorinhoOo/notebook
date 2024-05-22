@@ -26,7 +26,7 @@ namespace Storage
         public void Create(Exam exam)
         {
             string commandText = @"
-                INSERT INTO Exams (DateExam, CourseCode, Score, Teacher, Coef)
+                INSERT INTO Exam (DateExam, CourseCode, Score, Teacher, Coef)
                 VALUES (@DateExam, @CourseCode, @Score, @Teacher, @Coef);";
 
             SQLiteParameter[] parameters = {
@@ -44,29 +44,40 @@ namespace Storage
         public Exam[] ListAll()
         {
             List<Exam> exams = new List<Exam>();
-            string query = "SELECT DateExam, CourseCode, Score, Teacher, Coef FROM Exams";
+            string query = "SELECT DateExam, CourseCode, Score, Teacher, Coef FROM Exam";
             using (var reader = db.ExecuteQuery(query))
             {
                 while (reader.Read())
                 {
-                    DateTime dateExam = DateTime.FromFileTime(reader.GetInt64(0));
-                    string courseCode = reader.GetString(1);
-                    decimal? score = reader.IsDBNull(2) ? null : reader.GetDecimal(2);
-                    string teacher = reader.GetString(3);
-                    int coef = reader.GetInt32(4);
-                    Exam exam = new Exam(courseDao.Read(courseCode))
-                    {
-                        DateExam = dateExam,
-                        Score = score,
-                        Teacher = teacher,
-                        Coef = coef
-                    };
-
+                    Exam exam = Reader2Exam(reader);
                     exams.Add(exam);
                 }
             }
             return exams.ToArray();
         }
+
+        private Exam Reader2Exam(SQLiteDataReader reader)
+        {
+            // on extracte les données depuis le reader
+            DateTime dateExam = DateTime.FromFileTime(reader.GetInt64(0));
+            string courseCode = reader.GetString(1);
+            decimal? score = reader.IsDBNull(2) ? null : reader.GetDecimal(2);
+            string teacher = reader.GetString(3);
+            int coef = reader.GetInt32(4);
+
+
+            // On créé l'examen en récupérant le cours correspondant à l'examen via le DAO courseDAO
+            Exam exam = new Exam(courseDao.Read(courseCode))
+            {
+                DateExam = dateExam,
+                Score = score,
+                Teacher = teacher,
+                Coef = coef
+            };
+
+            return exam;
+        }
+
 
     }
 }

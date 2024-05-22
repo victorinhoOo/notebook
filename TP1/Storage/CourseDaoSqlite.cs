@@ -76,7 +76,14 @@ namespace Storage
             };
             using (var reader = db.ExecuteQuery(query, parameters))
             {
-                return Reader2Course(reader);
+                if (reader.Read())
+                {
+                    return Reader2Course(reader);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

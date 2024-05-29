@@ -8,18 +8,33 @@
         Title="ExamScreen" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
+        <Label Content="Date :" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <DatePicker Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" Height="30" x:Name="DateExamPicker"/>
 
-        <ListBox x:Name="listExam" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
-        <Button Content="Create exam" Grid.Column="0" Grid.Row="1" Margin="120,5,120,5"/>
-        <Button Content="Close" Grid.Column="1" Grid.Row="1" Margin="120,5,120,5" />
+        <Label Content="Course :" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" Height="30" x:Name="listCourses"/>
+
+        <Label Content="Teacher :" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" Height="30" x:Name="TeacherTextBox"/>
+
+        <Label Content="Score :" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Height="30" x:Name="ScoreTextBox"/>
+        <Label Content="Coef :" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="right"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Margin="5" Height="30" x:Name="CoefTextBox"/>
+
+        <Button Content="Close" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="5" Height="50" Width="70" Click="ButtonCloseClicked"/>
     </Grid>
-
 </Window>

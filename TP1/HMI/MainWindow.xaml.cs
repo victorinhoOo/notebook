@@ -41,13 +41,11 @@ namespace HMI
         }
 
         /// <summary>
-        /// 
+        /// Réagit au clic sur le bouton "Edit Exam" en ouvrant la fenêtre correspondante
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OpenExamsScreen_Click(Object sender, RoutedEventArgs e)
         {
-            ExamScreen examScreen= new ExamScreen(notebook);
+            ExamsScreen examScreen= new ExamsScreen(notebook);
             examScreen.Show();
         }
 

@@ -64,5 +64,35 @@ namespace Logic
             return this.eDao.ListAll();
         }
 
+        /// <summary>
+        /// Calcule la moyenne générale de tous les examens à travers tous les cours
+        /// </summary>
+        /// <returns>Moyenne générale</returns>
+        public double ComputeAverage()
+        {
+            double totalMoyennePondere = 0;
+            int totalCoef = 0;
+
+            Course[] courses = this.GetCourses();
+            Exam[] exams = this.GetExams();
+
+            foreach (Course course in courses)
+            {
+                Exam[] courseExams = exams.Where(e => e.Course.Code == course.Code).ToArray();
+                double? courseAverage = course.ComputeAverage(courseExams);
+
+                if (courseAverage.HasValue  && course.Weight > 0)
+                {
+                    totalMoyennePondere += courseAverage.Value * course.Weight;
+                    totalCoef += course.Weight;
+                }
+            }
+
+            return totalMoyennePondere / totalCoef;
+        }
+
+
+
+
     }
 }

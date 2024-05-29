@@ -101,7 +101,7 @@ namespace Logic
         /// </summary>
         public void Save()
         {
-            if(this.exists)
+            if (this.exists)
             {
                 dao.Update(this);
             }
@@ -110,6 +110,38 @@ namespace Logic
                 dao.Create(this);
                 exists = true;
             }
+        }
+
+
+        /// <summary>
+        /// Calcule la moyenne pondérée des scores des examens associés à ce cours.
+        /// </summary>
+        /// <param name="exams">Liste des examens</param>
+        /// <returns>La moyenne pondérée des scores si des scores sont disponibles; sinon, retourne null.</returns>
+        public double? ComputeAverage(Exam[] exams)
+        {
+            double? result = null;
+            decimal totalPondere = 0;  
+            int coefTotal = 0;  
+
+            // Parcourt tous les examens 
+            foreach (Exam exam in exams)
+            {
+                // Vérifie que l'examen correspond à ce cours et que le score est renseigné
+                if (exam.Course.Code == this.Code && exam.Score.HasValue)
+                {
+                    totalPondere += exam.Score.Value * exam.Coef; // Ajoute le produit du score par son coefficient au total pondéré
+                    coefTotal += exam.Coef; // Incrémente le coef total par le coefficient de l'examen
+                }
+            }
+
+            // Calcule la moyenne pondérée si le coef total est supérieur à zéro
+            if (coefTotal > 0)
+            {
+                result = (double)(totalPondere / coefTotal);
+            }
+       
+            return result;
         }
     }
 }

@@ -44,6 +44,20 @@ namespace TestLogicLayer
             Assert.Equal(course, dao.LastCourse);
         }
 
+        [Fact]
+        public void TestComputeAverage()
+        {
+            var examDao = new FakeExamDao();
+            var courseDao = new FakeCourseDao();
+            var notebook = new Notebook(courseDao, examDao);
+            double? average = notebook.ComputeAverage();
+            Assert.NotNull(average);
+            double r203 = (12 * 1 + 0 * 10) / 11.0;
+            double r201 = 10.0;
+            double total = (r201 * 5 + r203 * 3) / 8;
+            Assert.Equal(total, average.Value, 5);
+        }
+
 
     }
 }

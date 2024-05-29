@@ -37,5 +37,10 @@ namespace HMI
             examScreen.ShowDialog();
             listExam.ItemsSource = this.notebook.GetExams();
         }
+
+        private void CloseWindow(Object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

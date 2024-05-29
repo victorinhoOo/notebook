@@ -138,5 +138,33 @@ namespace TestLogicLayer
             Assert.Equal(test, dao.LastCourse);
         }
 
+        [Fact]
+        public void TestComputeAverage()
+        {
+            FakeCourseDao dao = new FakeCourseDao();
+            Course test = new Course(dao, true);
+            test.Code = "T";          
+            test.Name = "test";
+            test.Weight = 1;
+            Exam e1 = new Exam(test);
+            e1.Score = new decimal(11.5);
+            e1.Coef = 2;
+            Exam e2 = new Exam(test);
+            e2.Score = 14;
+            e2.Coef = 3;
+            Course other = new Course(dao, true);
+            other.Code = "o";
+            other.Name = "other";
+            other.Weight = 10;
+            Exam e3 = new Exam(other);
+            e3.Score = 18;
+            e3.Coef = 10;
+            Exam[] exams = new Exam[] { e1, e2, e3 };
+            double? average = test.ComputeAverage(exams);
+            Assert.NotNull(average);
+            double computed = (11.5 * 2 + 14 * 3) / 5;
+            Assert.Equal(computed, average.Value, 6);
+        }
+
     }
 }

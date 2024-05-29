@@ -2,6 +2,7 @@
 using Storage;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,18 @@ namespace HMI
         {
             ExamsScreen examScreen= new ExamsScreen(notebook);
             examScreen.Show();
+        }
+
+        /// <summary>
+        /// Réagit au clic sur le bouton "Average" en calculant la moyenne générale
+        /// </summary>
+        private void ComputeAverage_Click(object sender, RoutedEventArgs e)
+        {
+            double? average = notebook.ComputeAverage();
+            if (average != null)
+            {
+                MessageBox.Show($"Average score is {average.Value.ToString("F2")}"); // POur avoir seulement 2 chiffres après la virgule
+            }
         }
 
     }
